@@ -57,7 +57,7 @@ def descifrar_cesar_mensaje(mensaje): #Ejecuta el ataque de fuerza bruta
     return resultados, mejor_shift
 
 
-pcap_file = "Lab_1/Ejemplo_comida_china.pcapng"  
+pcap_file = "Lab_1/Ejemplo_lab.pcapng"  
 mensaje = reconstruir_mensaje(pcap_file)
 print("[+] Mensaje transmitido a 8.8.8.8 (cifrado):")
 print(mensaje)

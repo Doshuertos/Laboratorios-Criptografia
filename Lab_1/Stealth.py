@@ -13,11 +13,15 @@ Base_payload = bytes([
     0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37
 ]) #Bytes del 0x10 hasta el 0x37
 id_mensaje = 0xBFF1
-ts_bytes = struct.pack("d", time.time())  # 8 bytes timestamp
+
+fixed_header = bytes([
+    0x10, 0x11, 0x12, 0x13,
+    0x14, 0x15, 0x16
+])
+
 
 for i, caracter in enumerate(mensaje):
-    payload = bytes([ord(caracter)]) + Base_payload
-    payload += ts_bytes
+    payload = bytes([ord(caracter)]) + fixed_header  + Base_payload
     Mensaje_a_Enviar = IP(dst = ip_destino)/ICMP(id = id_mensaje, seq = i)/payload
     send(Mensaje_a_Enviar)
     time.sleep(0.1)
