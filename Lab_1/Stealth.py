@@ -3,7 +3,7 @@ from scapy.all import IP, ICMP, send
 import time
 import struct
 
-mensaje = "larycxpajorj h bnpdarmjm nw anmnb "  # Mensaje a enviar
+mensaje = "larycxpajorj h bnpdarmjm nw anmnb "  # Mensaje a enviar otros ejemplos : wigcxu wbchu , nhav whugvu , Phvvl
 ip_destino = "8.8.8.8"  # IP a utilizar
 Base_payload = bytes([
     0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
