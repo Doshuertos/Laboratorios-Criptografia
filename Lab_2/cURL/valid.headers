@@ -1,0 +1,23 @@
+HTTP/1.1 302 Found
+Date: Sun, 28 Sep 2025 18:04:06 GMT
+Server: Apache/2.4.62 (Debian)
+X-Powered-By: PHP/8.4.8
+Set-Cookie: PHPSESSID=07d6df1b02ed3efa7f82b5d410dfccae; expires=Mon, 29 Sep 2025 18:04:06 GMT; Max-Age=86400; path=/; domain=127.0.0.1
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Location: index.php
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+
+HTTP/1.1 200 OK
+Date: Sun, 28 Sep 2025 18:04:06 GMT
+Server: Apache/2.4.62 (Debian)
+X-Powered-By: PHP/8.4.8
+Expires: Tue, 23 Jun 2009 12:00:00 GMT
+Cache-Control: no-cache, must-revalidate
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 6490
+Content-Type: text/html;charset=utf-8
+

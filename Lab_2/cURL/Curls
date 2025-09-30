@@ -1,0 +1,41 @@
+curl 'http://127.0.0.1:4280/login.php' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+  -H 'Accept-Language: es-ES,es;q=0.9' \
+  -H 'Cache-Control: max-age=0' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -b 'PHPSESSID=07d6df1b02ed3efa7f82b5d410dfccae; security=low; theme=light' \
+  -H 'Origin: http://127.0.0.1:4280' \
+  -H 'Proxy-Connection: keep-alive' \
+  -H 'Referer: http://127.0.0.1:4280/login.php' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Not=A?Brand";v="24", "Chromium";v="140"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  --data-raw 'username=12345&password=12345&Login=Login&user_token=20158ff23dd20488e455232f803c8b64'
+
+  --Contraseña correcto
+
+  curl 'http://127.0.0.1:4280/login.php' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+  -H 'Accept-Language: es-ES,es;q=0.9' \
+  -H 'Cache-Control: max-age=0' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -b 'PHPSESSID=07d6df1b02ed3efa7f82b5d410dfccae; security=low; theme=light' \
+  -H 'Origin: http://127.0.0.1:4280' \
+  -H 'Proxy-Connection: keep-alive' \
+  -H 'Referer: http://127.0.0.1:4280/login.php' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Not=A?Brand";v="24", "Chromium";v="140"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  --data-raw 'username=admin&password=password&Login=Login&user_token=491c97f63e33293f3001de5e3d06fc13'
