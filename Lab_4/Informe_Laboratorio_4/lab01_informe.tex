@@ -1,0 +1,395 @@
+\documentclass[letter,12pt]{article}
+\usepackage[paperheight=27.94cm,paperwidth=21.59cm,bindingoffset=0in,left=3cm,right=2.0cm, top=3.5cm,bottom=2.5cm, headheight=200pt, headsep=1.0\baselineskip]{geometry}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{pdfpages}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[backend=biber]{biblatex}
+\bibliography{referencias}
+
+\renewcommand{\tablename}{Tabla}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{listings}
+\usepackage{xcolor}
+\fancyhead[L]{}
+%
+\lstdefinestyle{mypython}{
+    language=Python,
+    backgroundcolor=\color{lightgray!20},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    tabsize=4
+}
+\begin{document}
+%
+   \title{\Huge{Informe Laboratorio 4}}
+
+   \author{\textbf{Sección 2} \\  \\ Dante Hortuvia  \\ e-mail: dante.hortuvia@mail.udp.cl}
+   
+   \date{Diciembre de 2025}
+
+   \maketitle
+   
+   \tableofcontents
+ 
+  \newpage
+  
+
+\section{Descripción de actividades}
+Desarrollar un programa en Python utilizando la librería pycrypto para cifrar y descifrar mensajes con los algoritmos DES, AES-256 y 3DES, permitiendo la entrada de la key, vector de inicialización y el texto a cifrar desde la terminal. 
+
+Instrucciones:
+
+\begin{enumerate}
+    \item Investigación
+    \begin{itemize}
+        \item Investigue y documente el tamaño en bytes de la clave y el vector de inicialización (IV) requeridos para los algoritmos DES, AES-256 y 3DES. Mencione las principales diferencias entre cada algoritmo, sea breve.
+    \end{itemize}
+
+    \item El programa debe solicitar al usuario los siguientes datos desde la terminal
+    \begin{itemize}
+        \item Key correspondiente a cada algoritmo.
+        \item Vector de Inicialización (IV) para cada algoritmo.
+        \item Texto a cifrar.
+    \end{itemize}
+
+    \item Validación y ajuste de la clave
+    \begin{itemize}
+        \item Si la clave ingresada es menor que el tamaño necesario para el algoritmo complete los bytes faltantes agregando bytes adicionales generados de manera aleatoria (utiliza get\_random\_bytes).
+        \item Si la clave ingresada es mayor que el tamaño requerido, trunque la clave a la longitud necesaria.
+        \item Imprima la clave final utilizada para cada algoritmo después de los ajustes.
+    \end{itemize}
+
+    \item Cifrado y Descifrado
+    \begin{itemize}
+        \item Implemente una función para cada algoritmo de cifrado y descifrado (DES, AES-256, y 3DES). Use el modo CBC para todos los algoritmos.
+        \item Asegúrese de utilizar el IV proporcionado por el usuario para el proceso de cifrado y descifrado.
+        \item Imprima tanto el texto cifrado como el texto descifrado.
+    \end{itemize}
+
+    \item Comparación con un servicio de cifrado online
+    \begin{itemize}
+        \item Selecciona uno de los tres algoritmos (DES, AES-256 o 3DES), ingrese el mismo texto, key y vector de inicialización en una página web de cifrado online.
+        \item Compare los resultados de tu programa con los del servicio online. Valide si el resultado es el mismo y fundamente su respuesta.
+    \end{itemize}
+
+    \item Aplicabilidad en la vida real
+    \begin{itemize}
+        \item Describa un caso, situación o problema donde usaría cifrado simétrico. Defina que algoritmo de cifrado simétrico recomendaría justificando su respuesta.
+        \item Suponga que la recomendación que usted entrego no fue bien percibida por su contraparte y le pide implementar hashes en vez de cifrado simétrico. Argumente cuál sería su respuesta frente a dicha solicitud. 
+    \end{itemize}
+\end{enumerate}
+
+
+
+\section{Desarrollo de actividades según criterio de rúbrica}
+
+\subsection{Investiga y documenta los tamaños de clave e IV}
+\section{Algoritmos de Cifrado: DES, 3DES y AES-256}
+
+El algoritmo \textbf{DES (Data Encryption Standard)} cifra información en bloques de 64 bits, utilizando una clave nominal de 64 bits, aunque en realidad solo 56 bits son efectivos, ya que cada octavo bit se usa para paridad. Este método se considera actualmente inseguro debido a su vulnerabilidad ante ataques de fuerza bruta.
+
+El \textbf{3DES (Triple DES)} surge como una mejora de DES, aplicando el cifrado tres veces sobre cada bloque de 64 bits. Puede emplear dos o tres claves independientes, generando longitudes efectivas de 112 o 168 bits (128 o 192 bits totales antes de eliminar los bits de paridad). Aunque ofrece mayor seguridad, su principal desventaja es la ineficiencia y lentitud frente a algoritmos más modernos.
+
+Por su parte, el \textbf{AES-256 (Advanced Encryption Standard)} es el estándar actual de cifrado simétrico. Opera con bloques de 128 bits y una clave de 256 bits, ofreciendo una seguridad significativamente superior y una alta eficiencia computacional. Su diseño lo hace resistente a ataques de fuerza bruta y ampliamente adoptado en sistemas modernos.
+
+En cuanto a los \textbf{vectores de inicialización (IV)}, estos añaden aleatoriedad al proceso de cifrado, evitando la detección de patrones entre mensajes cifrados. Su tamaño depende del tamaño del bloque del algoritmo: 64 bits (8 bytes) para DES y 3DES, y 128 bits (16 bytes) para AES-256.
+
+\begin{table}[H]
+\centering
+\caption{Tamaños de clave, bloque e IV para los algoritmos DES, 3DES y AES-256.}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Algoritmo} & \textbf{Tamaño de clave} & \textbf{Tamaño de bloque / IV} & \textbf{Fuente principal} \\ \hline
+DES & 8 bytes  & 8 bytes  & NIST FIPS 46-3 \\ \hline
+3DES (TDEA) & 16 o 8 bytes   & 64 bits & NIST SP 800-67 Rev. 2 \\ \hline
+AES-256 & 32 bytes & 16 bytes  & NIST FIPS 197 \\ \hline
+\end{tabular}
+\end{table}
+
+ DES y 3DES operan sobre bloques de 64 bits, AES-256 utiliza bloques de 128 bits, ofreciendo una mejor relación entre seguridad y rendimiento. Por esta razón, AES-256 es actualmente el estándar de cifrado más utilizado en aplicaciones que requieren alta seguridad y eficiencia.
+
+\subsection{Solicita datos de entrada desde la terminal}
+
+Se implementa un pequeño menu para decidir que tipo de algoritmo quiere usar el usuario, una vez decidido el algortimo a usar le pide el ingreso de datos mediante "inputs", para luego proceder con  ciertos ajuster para la llave y el Vector\_IV
+
+\begin{lstlisting}[style=mypython, caption={Pequeño menu para la utilizacion de los cifrados}]
+while 1 :
+    
+    print("Ingrese tipo de Cifrado")
+    print("[1] Para DES")
+    print("[2] Para AES-256")
+    print("[3] para 3DES")
+    print("Cualquier otro valor para Salir")
+    
+    Cifrado = int(input())
+    if Cifrado not in [1, 2, 3] :
+        break
+    Key = input("Ingrese clave a Para cifrar : \n")
+    Key = Key.encode('utf-8') #Para pasar a bytes 
+    Valided_Key = creacion_Clave(Key,Cifrado)
+    
+    Vector = input("ingrese valor del vector IV : \n")
+    Vector = Vector.encode('utf-8')
+    
+    Texto = input("ingrese texto a para cifrar : \n")
+    Texto = Texto.encode('utf-8')
+    
+    if Cifrado == 1 :
+        C_Text,Vector_IV = Encriptacion_DES(Valided_Key,Vector,Texto)
+        Texto_Original = Desencriptacion_DES(Valided_Key,Vector_IV,C_Text)
+    elif Cifrado == 3 : 
+        C_Text,Vector_IV = Encriptacion_3DES(Valided_Key,Vector,Texto)
+        Texto_Original = Desencriptacion_3DES(Valided_Key,Vector_IV,C_Text)
+    elif Cifrado == 2 :  
+        C_Text,Vector_IV = Encriptacion_AES_256(Valided_Key,Vector,Texto)
+        Texto_Original = Desencriptacion_AES_256(Valided_Key,Vector_IV,C_Text)
+    
+    
+\end{lstlisting}
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=10cm]{Ingreso de datos.png}
+        \caption{Ejemplo de el ingreso de los datos a cifrar.} 
+        \label{fig:a3}
+\end{figure}
+
+Como se observa en la imagen anterior, los datos se ingresan mediante la función \texttt{input()}, acompañada de un \texttt{print} que indica qué dato se solicita y en qué orden deben introducirse. Es importante destacar que los datos solo pueden ingresarse en texto plano, ya que el programa no admite valores en formato hexadecimal. Esto se debe a que no se implementaron las funciones necesarias para realizar la conversión de dichos valores.
+\subsection{Valida y ajusta la clave según el algoritmo}
+Se implementa una fucion que primero verifica el tamaño de la Llave ingresada, para verificar si el tamaño de esta es correcto, esta denominada \textbf{creacion\_Clave}
+
+\begin{lstlisting}[style=mypython, caption={Funcion} \textbf{creacion\_Clave}]
+def creacion_Clave(Key, Cifrado):
+    if Cifrado == 1 : 
+        Tamaño_bytes = 8
+    elif Cifrado == 2 : 
+        Tamaño_bytes = 32
+    elif Cifrado == 3 : 
+        Tamaño_bytes = 24
+
+    if len(Key) < Tamaño_bytes : 
+        Key += get_random_bytes(Tamaño_bytes - len(Key))
+    elif len(Key) > Tamaño_bytes :
+        Key = Key[:Tamaño_bytes]
+
+    return Key
+\end{lstlisting}
+Como se observa en el codigo anterior este ajusta la longitud de la clave según el algoritmo de cifrado seleccionado. Dependiendo del valor de \text{Cifrado}, se asigna un tamaño específico: 8 bytes para DES, 24 bytes para 3DES y 32 bytes para AES-256. Si la clave proporcionada es más corta que el tamaño requerido, la función la completa con bytes aleatorios generados mediante \text{get\_random\_bytes}; en caso contrario, si es más larga, se recorta hasta alcanzar la longitud adecuada. De esta forma, la función asegura que la clave cumpla con los requisitos de cada método de cifrado y sea válida para su correcto funcionamiento.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=15cm]{LLave ingresada Valida.png}
+        \caption{Ejecucion de la funcion que ajusta la llave.} 
+        \label{fig:a3}
+\end{figure}
+Como se observa en la imagen anterior, la llave ingresa fue de 4 Bytes y la funcion le agrego (en Hexadecimal) los 4 Bytes faltantes para generar una llave de cifrado correcta.
+
+Ademas se implementa la misma logica de funcion para el Vector\_IV, donde este tambien tiene que tener una cantidad de Bytes, este tal como la funcion previamente mencionada hace el mismo proceso de trunca o añadir Bytes. 
+
+\begin{lstlisting}[style=mypython, caption={Variacion de la funcion para Vector\_IV}]
+ if len(Vector_IV) < 8 : 
+        Vector_IV += get_random_bytes(8  - len(Vector_IV)) 
+        
+    elif len(Vector_IV) > 8 : 
+        Vector_IV = Vector_IV[:8]
+\end{lstlisting}
+finalmente la función \textbf{creacion\_Clave} garantiza que la clave utilizada cumpla con la longitud requerida por cada algoritmo de cifrado, completando o truncando los bytes según sea necesario. De esta forma, se evita que una clave inválida impida el proceso de encriptación. donde misma lógica tambien aplica al \textbf{Vector\_IV}, asegurando que ambos parámetros tengan el tamaño correcto para un funcionamiento adecuado del sistema de cifrado.
+\subsection{Implementa el cifrado y descifrado en modo CBC}
+\begin{lstlisting}[style=mypython, caption={Funcion de encriptacion DES}]
+def Encriptacion_DES(Key , Vector_IV, Texto) : 
+    
+    if len(Vector_IV) < 8 : 
+        Vector_IV += get_random_bytes(8  - len(Vector_IV))
+        
+    elif len(Vector_IV) > 8 : 
+        Vector_IV = Vector_IV[:8]
+        
+    Cifrado = DES.new(Key, DES.MODE_CBC,iv = Vector_IV)
+    Texto_Con_Padding = pad(Texto,DES.block_size)
+    Texto_Cifrado = Cifrado.encrypt(Texto_Con_Padding)
+    
+    return Texto_Cifrado,Vector_IV
+\end{lstlisting}
+
+\begin{lstlisting}[style=mypython, caption={Funcion Encriptacion 3DES}]
+
+def Encriptacion_3DES(Key , Vector_IV, Texto) : 
+    
+    if len(Vector_IV) < 8 : 
+        Vector_IV += get_random_bytes(8  - len(Vector_IV)) 
+        
+    elif len(Vector_IV) > 8 : 
+        Vector_IV = Vector_IV[:8]
+    
+    Cifrado = DES3.new(Key, DES3.MODE_CBC,iv = Vector_IV)
+    Texto_Con_Padding = pad(Texto,DES3.block_size)
+    Texto_Cifrado = Cifrado.encrypt(Texto_Con_Padding)
+    
+    return Texto_Cifrado,Vector_IV
+\end{lstlisting}
+
+\begin{lstlisting}[style=mypython, caption={Encriptacion AES 256}]
+def Encriptacion_AES_256(Key , Vector_IV, Texto) :     
+    
+    if len(Vector_IV) < 16 : 
+        Vector_IV += get_random_bytes(16  - len(Vector_IV)) 
+        
+    elif len(Vector_IV) > 16 : 
+        Vector_IV = Vector_IV[:16]
+    
+    Cifrado = AES.new(Key, AES.MODE_CBC,iv = Vector_IV)
+    Texto_Con_Padding = pad(Texto,AES.block_size)
+    Texto_Cifrado = Cifrado.encrypt(Texto_Con_Padding)
+    return Texto_Cifrado,Vector_IV
+\end{lstlisting}
+Las funciones \textbf{Encriptacion\_DES}, \textbf{Encriptacion\_3DES} y \textbf{Encriptacion\_AES\_256} tienen como objetivo realizar el proceso de cifrado de un texto utilizando los algoritmos DES, 3DES y AES-256 respectivamente, todos bajo el modo de operación \textbf{CBC (Cipher Block Chaining)}.
+
+Cada función comienza verificando el tamaño del \textbf{Vector de Inicialización (IV)}, el cual debe coincidir con el tamaño del bloque que utiliza cada algoritmo: 8 bytes para DES y 3DES, y 16 bytes para AES-256. Si el vector es más corto, se completa con bytes aleatorios generados mediante \texttt{get\_random\_bytes}; si es más largo, se trunca hasta alcanzar la longitud adecuada.
+
+Posteriormente, se crea un objeto de cifrado con la clave (\texttt{Key}) y el vector (\texttt{Vector\_IV}) mediante las librerías correspondientes (\texttt{DES.new}, \texttt{DES3.new} y \texttt{AES.new}). Antes de cifrar, el texto se rellena con la función \texttt{pad()} para asegurar que su longitud sea múltiplo del tamaño del bloque. Finalmente, se ejecuta el proceso de encriptación mediante \texttt{encrypt()}, retornando el texto cifrado junto con el vector de inicialización utilizado.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=15cm]{Cifrado_DES.PNG}
+        \caption{Ejecucion de cifrado DES.} 
+        \label{fig:a3}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=15cm]{CIFRADO AES.PNG}
+        \caption{Ejecucion de cifrado AES\_256.} 
+        \label{fig:a3}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=15cm]{Cifrado_3DES.PNG}
+        \caption{Ejecucion de cifrado 3DES.} 
+        \label{fig:a3}
+\end{figure}
+Como se aprecia en los resultados, cada algoritmo ajusta automáticamente tanto la clave como el vector de inicialización (\textbf{IV}) según el tamaño requerido. En los casos en que la clave ingresada es más corta, el programa completa los bytes faltantes con valores aleatorios, garantizando que la longitud cumpla con el estándar del cifrado (8 bytes para DES, 24 bytes para 3DES y 32 bytes para AES-256).
+
+Durante la ejecución se muestra la clave original, la clave validada (ya ajustada) y el texto cifrado tanto en formato hexadecimal como en texto plano. Esto permite visualizar cómo los datos ingresados se transforman en una secuencia codificada ilegible, producto del proceso de encriptación.
+
+En el caso del cifrado AES-256, puede observarse que la clave fue considerablemente extendida mediante bytes aleatorios, mientras que para DES y 3DES el relleno fue menor debido a su menor tamaño de bloque. En todos los casos, el algoritmo aplicó correctamente el modo \textbf{CBC}, generando resultados distintos incluso para textos similares, gracias al uso del IV y al padding aplicado antes del cifrado.
+\begin{lstlisting}[style=mypython, caption={Desencriptacion DES}]
+def Desencriptacion_DES(Key, Vector_IV, Texto_Cifrado):
+    descifrado = DES.new(Key, DES.MODE_CBC, iv=Vector_IV)
+    texto_plano = unpad(descifrado.decrypt(Texto_Cifrado), DES.block_size)
+    return texto_plano
+\end{lstlisting}
+\begin{lstlisting}[style=mypython, caption={Desencriptacion 3DES}]
+def Desencriptacion_3DES(Key, Vector_IV, Texto_Cifrado):
+    descifrado = DES3.new(Key, DES3.MODE_CBC, iv=Vector_IV)
+    texto_plano = unpad(descifrado.decrypt(Texto_Cifrado), DES3.block_size)
+    return texto_plano   
+\end{lstlisting}
+\begin{lstlisting}[style=mypython, caption={Desencriptacion AES 256}]
+def Desencriptacion_AES_256(Key, Vector_IV, Texto_Cifrado):
+    descifrado = AES.new(Key, AES.MODE_CBC, iv=Vector_IV)
+    texto_plano = unpad(descifrado.decrypt(Texto_Cifrado), AES.block_size)
+    return texto_plano    
+\end{lstlisting}
+
+se implementa el proceso inverso al cifrado, es decir, la \textbf{desencriptación} de los datos previamente encriptados mediante los algoritmos DES, 3DES y AES-256, todos utilizando el modo de operación \textbf{CBC}.
+
+Cada función recibe como parámetros la clave, el vector de inicialización (\textbf{IV}) y el texto cifrado. A partir de estos, se crea un objeto de descifrado con la función correspondiente (\texttt{DES.new}, \texttt{DES3.new} o \texttt{AES.new}), empleando el mismo modo y los mismos valores utilizados durante el proceso de encriptación. Luego, el texto cifrado se descifra mediante \texttt{decrypt()} y se eliminan los bytes de relleno añadidos en el proceso original con la función \texttt{unpad()}, obteniendo así el texto plano original.
+El correcto funcionamiento de estas funciones depende de que la clave y el vector de inicialización coincidan exactamente con los usados durante el cifrado.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=18cm]{Decifrado_DES.PNG}
+        \caption{Ejecucion de Decifrado DES.} 
+        \label{fig:a3}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=18cm]{Decifrado_3DES.PNG}
+        \caption{Ejecucion de Decifrado 3DES.} 
+        \label{fig:a3}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=18cm]{Desencriptado AES.PNG}
+        \caption{Ejecucion de Decifrado AES.} 
+        \label{fig:a3}
+\end{figure}
+
+
+En los resultados de desencriptación se observa que los tres algoritmos DES, 3DES y AES-256 lograron recuperar correctamente el texto original a partir del texto cifrado, siempre que se utilizen las mismas claves y vectores de inicialización empleados durante el cifrado. Esto demuestra que las funciones implementadas realizan el proceso de descifrado de manera correcta, eliminando el padding agregado previamente y validando la integridad del mensaje original.
+
+\subsection{Compara los resultados con un servicio de cifrado online}
+Para hacer una comparacion de los resultados se ulitiza la siguiente web \href{https://emn178.github.io/online-tools/aes/encrypt/}{Online Tools}, donde se utilizo especificamente el cifrado AES-256, esta herramienta se configuro para usar el modo CBC esta tiene distintos parámetros que permiten observar de forma práctica cómo funciona este algoritmo. El sitio solicita ingresar el texto que se desea cifrar, la clave (Key) y el vector de inicialización (IV), los cuales pueden definirse manualmente o generarse a partir de una contraseña mediante funciones de derivación como PBKDF2. Además, permite seleccionar el modo de operación (en este caso CBC), el tipo de codificación del texto (UTF-8, Hex, Base64, entre otros) y el esquema de padding que ajusta el tamaño de los bloques. Esta flexibilidad facilita comprender cómo la clave y el IV influyen en el resultado final del cifrado.
+
+Este se configura de esta manera : \\
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=10cm]{Datos_de_la_web.PNG}
+        \caption{Datos ingresados a la web.} 
+        \label{fig:a3}
+\end{figure}
+\textbf{AES-256:}
+\begin{itemize} 
+    \item \textbf{Key:} \texttt{GTASANANDREASMEJORGTAQUEHAYOGTAV} 
+    \item \textbf{IV:} \texttt{1234567891011123}
+    \item \textbf{Input:} \texttt{All we had to do, was follow the damn train, CJ!}
+\end{itemize}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=15cm]{Input_de_la_web.PNG}
+        \caption{Input Ingresado en la web.} 
+        \label{fig:a3}
+\end{figure}
+Donde se obtuvo los siguientes resultados : 
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=15cm]{Resultados_de_la_web.PNG}
+        \caption{Resultados obtenidos de la web.} 
+        \label{fig:a3}
+\end{figure}
+Procedemos a comprarlos con los resultados obtenidos por nuestro codigo : 
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=18cm]{Resultados_A_Comparar.PNG}
+        \caption{Resultados Obtenidos del codigo.} 
+        \label{fig:a3}
+\end{figure}
+Como se observa en las imagenes los resultados son iguales, esto nos indica que las funciones implementadas fueron creadas de manera correcta, importante recalcar que esto funciona igual ya que se implementan la totalidad de bytes en ambos programas, si esto no fuera asi se rellenarian con bytes ramdom haciendo muy complejo que lleguen a los mismos resultados al momento de encriptar aunque mantendria el texto encriptado igual en ambos casos.
+\subsection{Describe la aplicabilidad del cifrado simétrico en la vida real}
+En la vida real, los algoritmos de cifrado simétrico como DES, 3DES y AES son ampliamente utilizados en una gran variedad de aplicaciones. Este tipo de cifrado se emplea para proteger archivos almacenados en dispositivos o servidores, en sistemas de autenticación y en la transmisión segura de datos a través de redes. Protocolos de comunicación como HTTPS, SSL/TLS y VPN utilizan cifrado simétrico para garantizar la confidencialidad e integridad de la información una vez que se establece un canal seguro.
+
+El algoritmo AES, en particular, es actualmente el estándar más adoptado a nivel mundial, implementado en servicios como la banca en línea, aplicaciones móviles, discos cifrados y dispositivos IoT. Su gran rapidez y resistencia frente a ataques lo convierten en una herramienta esencial para la protección de la información, tanto en entornos personales como corporativos. Sin embargo, uno de los principales desafíos del cifrado simétrico es la gestión segura de las claves, ya que la misma clave debe ser compartida entre las partes. Por ello, suele combinarse con mecanismos de cifrado asimétrico para intercambiar las claves de forma segura.
+
+Un caso práctico de uso sería proteger información sensible que no debería ser vista por terceros, como datos personales, bancarios o empresariales. Aunque dicha información esté almacenada localmente, siempre existe el riesgo de robo o filtración por malware. Para mitigar esto, la mejor opción es mantener los datos cifrados, de modo que solo quien posea la clave pueda acceder a ellos. Así, los archivos pueden descifrarse solo al momento de usarse y volver a cifrarse antes de guardarse.
+
+Entre los algoritmos comparados, AES-256 se destaca como el más seguro y eficiente. Mientras DES presenta vulnerabilidades ante ataques de fuerza bruta y 3DES, aunque más robusto, resulta lento y también vulnerable, AES-256 ofrece un excelente equilibrio entre seguridad y rendimiento, razón por la cual se ha convertido en el estándar recomendado.
+
+Finalmente, es importante distinguir entre cifrado y hash. Aunque ambos se relacionan con la seguridad de los datos, sus objetivos son diferentes: el cifrado permite revertir el proceso para recuperar la información original si se dispone de la clave adecuada, mientras que un hash como SHA-256 es irreversible, impidiendo obtener los datos originales desde su resultado. Por ello, si se desea proteger información que deba ser recuperada posteriormente, debe utilizarse un cifrado seguro y no un algoritmo de hash.
+\section*{Conclusiones y comentarios}
+Gracias a este laboratorio se logró comprender en profundidad el funcionamiento de los algoritmos de cifrado simétrico DES, 3DES y AES-256, así como la relevancia que tienen las claves (Key) y los vectores de inicialización (IV) en la seguridad del proceso de cifrado. Se implementaron correctamente los tres métodos utilizando la librería PyCryptodome en Python, la cual resultó ser una alternativa moderna y funcional frente a la obsoleta PyCrypto.
+
+Durante la práctica se observó cómo la validación y ajuste automático de claves e IVs permite mantener la compatibilidad con los estándares del NIST, evitando errores en la ejecución. Los resultados obtenidos coincidieron con los de herramientas de cifrado en línea, confirmando la correcta implementación del modo CBC y del proceso de relleno (padding).
+
+Además, se evidenció que el uso de bytes aleatorios para completar claves o IVs influye directamente en el resultado del cifrado, lo que resalta la importancia de usar claves de longitud adecuada y gestionarlas de manera segura. En términos prácticos, el laboratorio permitió apreciar la utilidad del cifrado simétrico en la protección de información sensible tanto en almacenamiento como en transmisión de datos.
+
+Entre los algoritmos estudiados, AES-256 se destacó por su mayor seguridad y eficiencia, siendo el estándar actual en sistemas como la banca en línea, almacenamiento cifrado y redes privadas. Finalmente, se concluye que la gestión segura de claves es un aspecto crítico del cifrado simétrico; por ello, en entornos reales, se recomienda complementarlo con técnicas de cifrado asimétrico o mecanismos seguros de intercambio de claves para garantizar una protección integral de la información.
+% Please add the following required packages to your document preamble:
+%\begin{table}[htbp]
+
+\end{document}
