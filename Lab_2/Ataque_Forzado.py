@@ -5,7 +5,6 @@ import sys
 import numpy as np
 
 def Obtener_URL(Username, Password):
-    # función auxiliar (opcional) para ver la URL que se está llamando (GET style)
     return f"http://127.0.0.1:4280/vulnerabilities/brute/?username={Username}&password={Password}&Login=Login"
 
 session = requests.Session()

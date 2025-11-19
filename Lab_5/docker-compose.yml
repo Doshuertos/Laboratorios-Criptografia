@@ -1,0 +1,26 @@
+services:
+  c1:
+    build:
+      context: ./C1
+    container_name: c1
+    tty: true
+
+  c2:
+    build:
+      context: ./C2
+    container_name: c2
+    tty: true
+
+  c3:
+    build:
+      context: ./C3
+    container_name: c3
+    tty: true
+
+  s1:
+    build:
+      context: ./C4_S1
+    container_name: s1
+    tty: true
+    ports:
+      - "2222:22"

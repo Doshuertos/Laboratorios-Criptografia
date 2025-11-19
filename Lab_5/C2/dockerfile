@@ -1,0 +1,8 @@
+
+FROM ubuntu:18.10
+
+RUN apt-get update && \
+    apt-get install -y openssh-client tcpdump && \
+    rm -rf /var/lib/apt/lists/*
+
+CMD ["tail", "-f", "/dev/null"]
